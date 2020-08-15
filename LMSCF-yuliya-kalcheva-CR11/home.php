@@ -4,7 +4,7 @@
 	session_start();
 	require_once 'actions/db_connect.php';
 	
-	// if session is not set this will redirect to login page
+	// if session is not set this will redirect to login page 
 	if(!isset($_SESSION['user']) && !isset($_SESSION['admin'])){
 		header("Location: index.php");
 		exit;
@@ -14,11 +14,11 @@
 		exit;
 	}
 
-	// select logged-in users details
+	// select logged-in users details 
 	$res = mysqli_query($conn, "SELECT * FROM users WHERE userId=".$_SESSION['user']);
 	$userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
-	$resPets = mysqli_query($conn, "SELECT * FROM `animal` WHERE `animal_age` >7");
+	$resPets = mysqli_query($conn, "SELECT * FROM animal");
 ?>
 
 <!DOCTYPE html>
@@ -27,12 +27,8 @@
 	<title>Home</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-	<div class="jumbotron p-0 m-0 jumbotron-fluid">
-		<!-- <img class="img-fluid" src="images/cover.jpg" alt="animal" style=""> -->
-	</div>
 	<!-- A grey horizontal navbar that becomes vertical on small screens -->
 	<nav class="navbar navbar-expand-sm bg-warning navbar-dark sticky-top">
 		<!-- Logo -->
@@ -42,10 +38,10 @@
   		<!-- Links -->
   		<ul class="navbar-nav">    		
     		<li class="nav-item">
-      			<a class="nav-link text-danger" href="general.php">Cuties</a>
+      			<a class="nav-link text-danger" href="senior.php">Seniors</a>
     		</li>
     		<li class="nav-item">
-      			<a class="nav-link text-danger" href="home.php">Home</a>
+      			<a class="nav-link text-danger" href="general.php">Cuties</a>
     		</li>
     		<li class="nav-item">
       			<a class="nav-link text-danger" href="logout.php?logout">Logout</a>
@@ -53,20 +49,20 @@
   		</ul>  		
 	</nav>
 
-	<!-- container start  -->
+	<!-- container start -->
 	<div class="container-fluid">
 
-		<!-- container for welcome msg -->
+		<!-- container for welcome-msg -->
 		<div class="welcome mt-3">
 			<p class="h2"> Welcome <?php echo $userRow['userName']?> </p>
-			<p class="h4">our Seniors</p>
-		</div>	
+			
+		</div>
 
-		<!-- container for output sql start with php -->	
+		<!-- container for output start with php -->
 		<div class="row justify-content-around">
 		<?php
 
-			include 'actions/db_connect.php';
+			include 'actions/db_connect.php';			
 
 			if(mysqli_num_rows($resPets) == 0) {
 				echo "no Pets";
@@ -85,7 +81,7 @@
 
   								<p>from ".$row["fk_location_id"]."</p>
   							</div>  							
-							<a href=''>Pet me!</a> 							
+							<a href=''>adopt</a> 							
 					 </div>";
 
 			}else {
@@ -103,15 +99,16 @@
 
   								<p>from ".$value["fk_location_id"]."</p>
   							</div>  							
-							<a href=''>Pet me</a> 							
+							<a href=''>adopt</a> 							
 					 </div>";
 				}
 			}
 		?>
-		</div>
-		<!-- container for output sql end with php -->		
+		</div>	
+		<!-- container for output end with php -->	
 	</div>
 	<!-- container end -->
+
 </body>
 </html>
 <?php ob_end_flush();?>
