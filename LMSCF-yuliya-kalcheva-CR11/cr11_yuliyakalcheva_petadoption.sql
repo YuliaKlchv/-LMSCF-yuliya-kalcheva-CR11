@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2020 at 05:09 PM
+-- Generation Time: Aug 17, 2020 at 10:45 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -46,18 +46,18 @@ CREATE TABLE `animal` (
 --
 
 INSERT INTO `animal` (`animal_id`, `animal_name`, `animal_age`, `animal_type`, `animal_size`, `description`, `animal_img`, `hobbies`, `fk_location_id`) VALUES
-(1, 'Archie', 2, 'Cuties', 'Small', 'He is the least selfish Cat in earth!', 'images/catt.jpg', 'stalking,pounching', 2),
-(2, 'Apricot', 3, 'Birds', 'Small', 'He is a cheerfull and a colorful bird.', 'images/bird.jpg', 'chatting---non stop', 8),
+(1, 'Archie', 7, 'Cuties', 'Small', 'He is the least selfish Cat in earth!', 'images/catt.jpg', 'stalking,pounching', 0),
+(2, 'Apricot', 2, 'Birds', 'Small', 'He is a cheerfull and a colorful bird.', 'images/bird.jpg', 'chatting---non stop', 8),
 (3, 'Bear', 4, 'Cuties', 'Small', 'a typical innocent golden Fish', 'images/fish.jpg', 'eating,sleeping,swimming just like fish :)', 4),
-(4, 'Beau ', 1, 'Cuties', 'Small', 'She is a beautiful white mouse', 'images/Small1.jpg', 'she likes to be alone and run all the time', 7),
+(4, 'Beau ', 2, 'Cuties', 'Small', 'She is a beautiful white mouse', 'images/Small1.jpg', 'she likes to be alone and run all the time', 7),
 (5, 'Cuba', 1, 'Reptiles', 'Small', 'absolutely shining', 'images/reptiles.jpg', 'helps you cleaning the insects and covers you with his ', 6),
 (6, 'Bee', 10, 'Cuties', 'Small', 'calm and peacefull', 'images/senior1.jpg', 'nowadays only sleeping ans sunbathing', 1),
-(7, 'Bailey', 9, 'Cuties', 'Small', 'he is a really curious cat.If he was a human,he would b', 'images/senior2.jpg', 'same as a human-being. just kidding but almost..', 5),
+(7, 'Bailey', 9, 'Cuties', 'Small', 'He is a really curious cat.If he was a human,he would b', 'images/senior2.jpg', 'same as a human-being. just kidding but almost..', 5),
 (9, 'Coconut', 10, 'Cuties', 'Large', 'old but gold', 'images/senior4.jpg', 'eating the grass', 6),
 (10, 'Cesar', 10, 'Cuties', 'Small', 'he is going to be your bff', 'images/senior3.jpg', 'sunbathing and sleeping', 6),
 (11, 'Angel', 5, 'Cuties', 'Large', 'she is purely amazing horse.', 'images/large3.jpg', 'reaffirm bonds with her herd buddies, scratching, groom', 8),
 (12, 'Daisy', 3, 'Cuties', 'Large', 'the huge body with a huge heart', 'images/large4.jpg', 'mud baths and socialising', 6),
-(13, 'Buddy', 3, 'Cuties', 'Large', 'good company, makes you laught all the time', 'images/monk.jpg', 'reading, watching tv', 3);
+(29, 'serce', 5, 'Cuties', 'Large', 'Cutest one ever', 'images/rabbit.jpg', 'running ', 5);
 
 -- --------------------------------------------------------
 
@@ -86,6 +86,28 @@ INSERT INTO `location` (`location_id`, `zip_code`, `city`, `address`) VALUES
 (7, 3456, 'Berlin', 'Karlsplatz'),
 (8, 1130, 'Hietzing', 'SchönbrunnerStr 16');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `userId` int(11) NOT NULL,
+  `userName` varchar(30) NOT NULL,
+  `userEmail` varchar(60) NOT NULL,
+  `userPass` varchar(255) NOT NULL,
+  `status` enum('user','admin') NOT NULL DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPass`, `status`) VALUES
+(1, 'hulya', 'hulyakurt89@hotmail.com', '1459cffa149ca2a5e466e70a7709b018e2068e75efebe29876b9b3be52c9a213', 'admin'),
+(2, 'hulya', 'cf@hotmail.com', '1459cffa149ca2a5e466e70a7709b018e2068e75efebe29876b9b3be52c9a213', 'user');
+
 --
 -- Indexes for dumped tables
 --
@@ -104,6 +126,13 @@ ALTER TABLE `location`
   ADD PRIMARY KEY (`location_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userId`),
+  ADD UNIQUE KEY `userEmail` (`userEmail`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -111,17 +140,13 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `animal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `animal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `users`
 --
-
---
--- Constraints for table `animal`
---
-ALTER TABLE `animal`
-  ADD CONSTRAINT `animal_ibfk_1` FOREIGN KEY (`fk_location_id`) REFERENCES `location` (`location_id`);
+ALTER TABLE `users`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
